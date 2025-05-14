@@ -6,6 +6,7 @@ import com.dreamfirestudios.dreamCore.DreamfireSmartInvs.content.InventoryProvid
 import com.dreamfirestudios.f0ggydragonegg.API.F0ggyDragonEggAPI;
 import com.dreamfirestudios.f0ggydragonegg.Enum.InventoryItems;
 import com.dreamfirestudios.f0ggydragonegg.Enum.Permissions;
+import com.dreamfirestudios.f0ggydragonegg.F0ggyDragonEgg;
 import com.dreamfirestudios.f0ggydragonegg.PulseConfig.F0ggyDragonEggConfig;
 import com.dreamfirestudios.f0ggydragonegg.PulseConfig.F0ggyDragonEggPermissions;
 import net.kyori.adventure.text.Component;
@@ -31,7 +32,7 @@ public class F0ggyDragonEggCoreMenu implements InventoryProvider {
 
     public CompletableFuture<Void> init(Player player, InventoryContents inventoryContents) {
         CompletableFuture<Void> future = new CompletableFuture<>();
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
             F0ggyDragonEggSmartInvsItems.InventoryItem(player, InventoryItems.BlankTile, clickableItem -> {
                 inventoryContents.fillRow(0, clickableItem);
             }, this::BlankTileClick);
@@ -59,7 +60,7 @@ public class F0ggyDragonEggCoreMenu implements InventoryProvider {
             }, this::ResetConfigsClick);
 
             future.complete(null);
-        }, future::completeExceptionally);
+        });
         return future;
     }
 
@@ -68,26 +69,26 @@ public class F0ggyDragonEggCoreMenu implements InventoryProvider {
     }
 
     private void SystemEnabledClick(Player player, InventoryClickEvent inventoryClickEvent){
-        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
+        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
             if(!craftLegendsCorePermissions.DoesPlayerHavePermission(Permissions.EnableSystem, player, true)) return;
             F0ggyDragonEggAPI.F0ggyDragonEggEnableSystem(dreamCoreTestTemplateConfig -> {});
             smartInventory.open(player);
-        }, Throwable::printStackTrace);
+        });
     }
 
     private void ReloadConfigsClick(Player player, InventoryClickEvent inventoryClickEvent) {
-        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
+        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
             if (!craftLegendsCorePermissions.DoesPlayerHavePermission(Permissions.ReloadConfigs, player, true)) return;
             F0ggyDragonEggAPI.F0ggyDragonEggReloadConfigs();
             smartInventory.open(player);
-        }, Throwable::printStackTrace);
+        });
     }
 
     private void ResetConfigsClick(Player player, InventoryClickEvent inventoryClickEvent){
-        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
+        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
             if(!craftLegendsCorePermissions.DoesPlayerHavePermission(Permissions.ResetConfigs, player, true)) return;
             F0ggyDragonEggAPI.F0ggyDragonEggResetConfigs();
             smartInventory.open(player);
-        }, Throwable::printStackTrace);
+        });
     }
 }

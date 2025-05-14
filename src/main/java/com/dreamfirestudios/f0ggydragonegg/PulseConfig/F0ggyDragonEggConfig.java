@@ -58,6 +58,6 @@ public class F0ggyDragonEggConfig extends StaticPulseConfig<F0ggyDragonEggConfig
     public void ToggleSystemEnabled(Consumer<F0ggyDragonEggConfig> onSuccess, boolean newState){
         new F0ggyDragonEggEnableSystemEvent(systemEnabled, newState);
         systemEnabled = newState;
-        SaveConfig(onSuccess, Throwable::printStackTrace);
+        SaveDreamConfig(F0ggyDragonEgg.GetF0ggyDragonEgg(), onSuccess);
     }
 }

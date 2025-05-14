@@ -17,10 +17,10 @@ public class F0ggyDragonEggEnableSystemEvent extends Event {
     public F0ggyDragonEggEnableSystemEvent(boolean oldState, boolean newState){
         this.oldState = oldState;
         this.newState = newState;
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, coreConfig -> {
             if(coreConfig.systemEnabled) return;
             Bukkit.getScheduler().runTask(F0ggyDragonEgg.GetF0ggyDragonEgg(), () -> {Bukkit.getPluginManager().callEvent(this);});
-        }, Throwable::printStackTrace);
+        });
     }
 
     public static HandlerList getHandlerList() {

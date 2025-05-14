@@ -6,6 +6,7 @@ import com.dreamfirestudios.dreamCommand.ServerCommand;
 import com.dreamfirestudios.dreamCore.DreamfireJava.PulseAutoRegister;
 import com.dreamfirestudios.f0ggydragonegg.API.F0ggyDragonEggAPI;
 import com.dreamfirestudios.f0ggydragonegg.Enum.Messages;
+import com.dreamfirestudios.f0ggydragonegg.F0ggyDragonEgg;
 import com.dreamfirestudios.f0ggydragonegg.PulseConfig.F0ggyDragonEggConfig;
 import com.dreamfirestudios.f0ggydragonegg.PulseConfig.F0ggyDragonEggMessages;
 import org.bukkit.command.CommandSender;
@@ -31,44 +32,44 @@ public class F0ggyDragonEggServerCommand extends ServerCommand {
     @PCMethod
     @PCSignature({})
     public void F0ggyDragonEggMethod(CommandSender commandSender){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
             if(!craftLegendsCoreConfig.systemEnabled) return;
-            F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
+            F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
                 craftLegendsCoreMessages.SendMessageToConsole(Messages.SystemIsntEnabled);
-            }, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            });
+        });
     }
 
     @PCMethod
     @PCSignature({"enable"})
     public void F0ggyDragonEggEnableMethod(CommandSender commandSender, boolean state){
         F0ggyDragonEggAPI.F0ggyDragonEggEnableSystem(dreamCoreTestTemplateConfig -> {}, state);
-        F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
+        F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
             craftLegendsCoreMessages.SendMessageToConsole(state ? Messages.ConsoleEnabledSystem : Messages.ConsoleDisableSystem);
-        }, Throwable::printStackTrace);
+        });
     }
 
     @PCMethod
     @PCSignature({"configs", "reset"})
     public void F0ggyDragonEggConfigsResetMethod(CommandSender commandSender){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
             if(!craftLegendsCoreConfig.systemEnabled) return;
             F0ggyDragonEggAPI.F0ggyDragonEggResetConfigs();
-            F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
+            F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
                 craftLegendsCoreMessages.SendMessageToConsole(Messages.PlayerResetConfig);
-            }, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            });
+        });
     }
 
     @PCMethod
     @PCSignature({"configs", "reload"})
     public void F0ggyDragonEggConfigsReloadMethod(CommandSender commandSender){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggConfig.class, craftLegendsCoreConfig -> {
             if(!craftLegendsCoreConfig.systemEnabled) return;
             F0ggyDragonEggAPI.F0ggyDragonEggResetConfigs();
-            F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
+            F0ggyDragonEggMessages.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggMessages.class, craftLegendsCoreMessages -> {
                 craftLegendsCoreMessages.SendMessageToConsole(Messages.PlayerReloadedConfig);
-            }, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            });
+        });
     }
 }

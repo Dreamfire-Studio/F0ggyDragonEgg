@@ -12,10 +12,10 @@ public class F0ggyDragonEggResetConfigEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     public F0ggyDragonEggResetConfigEvent(){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, coreConfig -> {
             if(coreConfig.systemEnabled) return;
             Bukkit.getScheduler().runTask(F0ggyDragonEgg.GetF0ggyDragonEgg(), () -> {Bukkit.getPluginManager().callEvent(this);});
-        }, Throwable::printStackTrace);
+        });
     }
 
     public static HandlerList getHandlerList() {

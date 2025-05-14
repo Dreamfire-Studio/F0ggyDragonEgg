@@ -30,12 +30,12 @@ public class F0ggyDragonEggMessages extends StaticEnumPulseConfig<F0ggyDragonEgg
     }
 
     public void SendMessageToPlayerPermission(Messages message, Permissions nexusCorePermission, Object... objects){
-        com.dreamfirestudios.f0ggydragonegg.PulseConfig.F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
+        F0ggyDragonEggPermissions.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggPermissions.class, craftLegendsCorePermissions -> {
             for(var player : Bukkit.getOnlinePlayers()){
                 if(!craftLegendsCorePermissions.DoesPlayerHavePermission(nexusCorePermission, player, false)) continue;
                 SendMessageToPlayer(message, player, objects);
             }
-        }, Throwable::printStackTrace);
+        });
     }
 
     public void SendMessageToPlayer(Messages message, Player player, Object... objects){

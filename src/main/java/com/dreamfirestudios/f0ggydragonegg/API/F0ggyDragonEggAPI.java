@@ -15,49 +15,49 @@ import java.util.function.Consumer;
 
 public class F0ggyDragonEggAPI {
     public static void F0ggyDragonEggEnableSystem(Consumer<F0ggyDragonEggConfig> onSuccess, boolean state){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, coreConfig -> {
             coreConfig.systemEnabled = state;
-            coreConfig.SaveConfig(onSuccess, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            coreConfig.SaveDreamConfig(F0ggyDragonEgg.GetF0ggyDragonEgg(), onSuccess);
+        });
     }
 
     public static void F0ggyDragonEggEnableSystem(Consumer<F0ggyDragonEggConfig> onSuccess){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, coreConfig -> {
             coreConfig.systemEnabled = !coreConfig.systemEnabled;
-            coreConfig.SaveConfig(onSuccess, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            coreConfig.SaveDreamConfig(F0ggyDragonEgg.GetF0ggyDragonEgg(), onSuccess);
+        });
     }
 
     public static void F0ggyDragonEggSerializeItem(Consumer<F0ggyDragonEggSerilizableItems> onSuccess, String id, ItemStack itemStack){
-        F0ggyDragonEggSerilizableItems.ReturnStaticAsync(F0ggyDragonEggSerilizableItems.class, coreConfig -> {
+        F0ggyDragonEggSerilizableItems.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggSerilizableItems.class, coreConfig -> {
             coreConfig.AddItemStack(id, itemStack);
-            coreConfig.SaveConfig(onSuccess, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            coreConfig.SaveDreamConfig(F0ggyDragonEgg.GetF0ggyDragonEgg(),onSuccess);
+        });
     }
 
     public static void F0ggyDragonEggResetConfigs(){
-        F0ggyDragonEggConfig.ReturnStaticAsync( F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggConfig.class, coreConfig -> {
             if(!coreConfig.systemEnabled) return;
-            DreamConfig.GetDreamfireConfig().RegisterStatic(F0ggyDragonEgg.GetF0ggyDragonEgg(), true);
+            DreamConfig.GetDreamConfig().RegisterStatic(F0ggyDragonEgg.GetF0ggyDragonEgg(), true);
             new F0ggyDragonEggResetConfigEvent();
-        }, Throwable::printStackTrace);
+        });
     }
 
     public static void F0ggyDragonEggReloadConfigs(){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggConfig.class, coreConfig -> {
             if(!coreConfig.systemEnabled) return;
-            DreamConfig.GetDreamfireConfig().RegisterStatic(F0ggyDragonEgg.GetF0ggyDragonEgg(), false);
+            DreamConfig.GetDreamConfig().RegisterStatic(F0ggyDragonEgg.GetF0ggyDragonEgg(), false);
             new F0ggyDragonEggReloadConfigEvent();
-        }, Throwable::printStackTrace);
+        });
     }
 
     public static void GivePlayerDragonEgg(Player player){
-        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEggConfig.class, coreConfig -> {
+        F0ggyDragonEggConfig.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(),F0ggyDragonEggConfig.class, coreConfig -> {
             if(!coreConfig.systemEnabled) return;
-            F0ggyDragonEggInventoryItems.ReturnStaticAsync(F0ggyDragonEggInventoryItems.class, f0ggyDragonEggInventoryItems -> {
+            F0ggyDragonEggInventoryItems.ReturnStaticAsync(F0ggyDragonEgg.GetF0ggyDragonEgg(), F0ggyDragonEggInventoryItems.class, f0ggyDragonEggInventoryItems -> {
                 var itemStack = f0ggyDragonEggInventoryItems.saveableHashmap.getHashMap().getOrDefault(InventoryItems.DragonEggItem, InventoryItems.DragonEggItem.ReturnItemStack());
                 player.getInventory().addItem(itemStack);
-            }, Throwable::printStackTrace);
-        }, Throwable::printStackTrace);
+            });
+        });
     }
 }
